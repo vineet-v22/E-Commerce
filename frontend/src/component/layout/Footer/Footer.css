@@ -1,0 +1,76 @@
+footer {
+    margin-top: 10vmax;
+    padding: 2vmax;
+    background-color: #feb968;
+    display: flex;
+    align-items: center;
+}
+
+.leftFooter {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.leftFooter>h4 {
+    color: rgba(40, 32, 32, 0.721);
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.leftFooter>p {
+    color: rgba(40, 32, 32, 0.721);;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.leftFooter > img{
+    width:7vmax;
+    margin:.5vmax;
+    cursor:pointer;
+}
+
+.midFooter{
+    color: rgba(40, 32, 32, 0.721);;
+    width:60%;
+    text-align: center;
+}
+
+.midFooter > h1{
+    font-size: 3vmax;
+    font-family:"Roboto";
+}
+
+.midFooter > p{
+    max-width: 60%;
+    margin: 1vmax auto ;
+}
+
+.rightFooter{
+    color: rgba(40, 32, 32, 0.721);;
+    width:20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rightFooter > h4{
+    /* color: ; */
+    font-family: "Roboto";
+    font-size: 1.5vmax;
+}
+
+.rightFooter > a {
+    text-decoration: none;
+    color: rgba(40, 32, 32, 0.721);
+    margin: 0.42vmax auto;
+    transition: color 0.7s ease, font-weight 0.7s ease;
+    font-size: 1.42vmax;
+}
+
+.rightFooter > a:hover {
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.9); /* Adjust the color to see the transition effect */
+}
+
+
