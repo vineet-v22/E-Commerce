@@ -19,20 +19,28 @@ exports.createProduct = catchAsyncErrors(async(req,res,next)=>{
     });
 });
 
-//get All products
+// Get all products
+exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
+    const resultPerPage = 8;
+    const productsCount = await Product.countDocuments();
 
-exports.getAllProducts = catchAsyncErrors(async(req,res)=>{
+    const apiFeature = new ApiFeatures(Product.find(), req.query)
+        .Search()  // Ensure this method is implemented in ApiFeatures
+        .filter(); // Ensure this method is implemented in ApiFeatures
 
-    const resultPerPage = 5;
-    const productCount = await Product.countDocuments();
+    let products = await apiFeature.query;
+    let filteredProductsCount = products.length;
 
-    const apiFeature = new ApiFeatures(Product.find(),req.query)
-    .Search()
-    .filter().pagination(resultPerPage);
-    const products = await apiFeature.query;
+    apiFeature.pagination(resultPerPage);
+    products = await apiFeature.query.clone();  // Use clone to avoid query re-execution issues
+
     res.status(200).json({
-        success:true,
-        products });
+        success: true,
+        products,
+        productsCount,
+        resultPerPage,
+        filteredProductsCount
+    });
 });
 
 // Get Product details
@@ -43,12 +51,12 @@ exports.getProductDetails = catchAsyncErrors(async(req,res,next)=>{
         return next(new ErrorHandler("Product not found",404));
     }
 
-    const productCount = await Product.countDocuments(); // Fetch the count of products
+    // const productCount = await Product.countDocuments(); // Fetch the count of products
 
     res.status(200).json({
         success:true,
         product,
-        productCount  // Include productCount in the response
+        // productCount  // Include productCount in the response
     });
 });
 

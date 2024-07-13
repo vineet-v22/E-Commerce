@@ -7,7 +7,7 @@ router.route("/order/new").post(isAuthenticatedUser,newOrder);
 
 router.route("/orders/me").get(isAuthenticatedUser, myOrders);
 
-router.route("/orders/:id").get(isAuthenticatedUser, getSingleOrder);//                                           ^ comma added here                ^ closing parenthesis added
+router.route("/order/:id").get(isAuthenticatedUser, getSingleOrder);//                                           ^ comma added here                ^ closing parenthesis added
 
 router.route("/admin/orders").get(isAuthenticatedUser,authorizedRoles("admin"),getAllOrders);
 
