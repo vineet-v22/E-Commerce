@@ -30,6 +30,18 @@ import { Elements } from '@stripe/react-stripe-js';
 import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import MyOrders from "./component/Order/MyOrders.js";
 import OrderDetails from "./component/Order/OrderDetails.js"
+import Dashboard from "./component/admin/Dashboard.js"
+import ProductList  from "./component/admin/ProductList.js"
+import NewProduct from './component/admin/NewProduct.js';
+import UpdateProduct from './component/admin/UpdateProduct.js';
+import OrderList from './component/admin/OrderList.js';
+import ProcessOrder from './component/admin/ProcessOrder.js';
+import UsersList from './component/admin/UsersList.js'
+import UpdateUser from './component/admin/UpdateUser.js';
+import ProductReviews from './component/admin/ProductReviews.js';
+import Contact from '../src/component/layout/Contact/Contact.js';
+import About from '../src/component/layout/About/About.js';
+import NotFound from '../src/component/layout/NotFound/NotFound.js';
 
 function App() {
   const { isAuthenticated, user, loading } = useSelector((state) => state.user);
@@ -67,6 +79,8 @@ function App() {
       
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/contact" element={<Contact />} />
+        <Route exact path="/about" element={<About />} />
         <Route exact path="/sad" element={<Loader />} />
         <Route exact path="/product/:id" element={<ProductDetails />} />
         <Route exact path="/products" element={<Products />} />
@@ -86,6 +100,15 @@ function App() {
           <Route exact path="/success" element={<OrderSuccess />} />
           <Route exact path="/orders" element={<MyOrders />} />
           <Route exact path="/order/:id" element={<OrderDetails />} />
+          <Route isAdmin = {true} exact path="/admin/dashboard" element = {<Dashboard/>}/>
+          <Route isAdmin = {true} exact path="/admin/products" element = {<ProductList/>}/>
+          <Route isAdmin = {true} exact path="/admin/product" element = {<NewProduct/>}/>
+          <Route isAdmin = {true} exact path="/admin/product/:id" element = {<UpdateProduct/>}/>
+          <Route isAdmin = {true} exact path="/admin/orders" element = {<OrderList/>}/>
+          <Route isAdmin = {true} exact path="/admin/order/:id" element = {<ProcessOrder/>}/>
+          <Route isAdmin = {true} exact path="/admin/users" element = {<UsersList/>}/>
+          <Route isAdmin = {true} exact path="/admin/user/:id" element = {<UpdateUser/>}/>
+          <Route isAdmin = {true} exact path="/admin/reviews" element = {<ProductReviews/>}/>
           {stripePromise && (
             <Route
               exact
@@ -98,6 +121,7 @@ function App() {
             />
           )}
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
       
       <Footer />

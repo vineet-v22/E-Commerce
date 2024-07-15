@@ -18,7 +18,7 @@ const UserOptions = ({ user }) => {
     const [open, setOpen] = useState(false);
     const alert = useAlert();
 
-    const dashboard = () => navigate("/dashboard");
+    const dashboard = () => navigate("/admin/dashboard");
     const orders = () => navigate("/orders");
     const account = () => navigate("/account");
     const logoutUser = () => {

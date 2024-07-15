@@ -244,19 +244,37 @@ exports.getSingleUser = catchAsyncErrors(async(req,res,next) =>{
 // update user Role -- Admin
 
 exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
-    const newUserData={
-        name:req.body.name,
-        email:req.body.email,
-        role:req.body.role,
+    const userId = req.params.id; // Assuming you're passing the user ID to update in the URL
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+        return next(new ErrorHandler(`User does not exist with Id: ${userId}`, 400));
     }
-    
-const user = await User.findByIdAndUpdate(req.user.id,newUserData,{
-    new:true,
-    runValidators:true,
-    useFindAndModify:false,
-});
+
+    const newUserData = {
+        name: req.body.name || user.name,
+        role: req.body.role
+    };
+
+    // Only update email if it's changed and not already in use
+    if (req.body.email && req.body.email !== user.email) {
+        const emailUser = await User.findOne({ email: req.body.email });
+        if (emailUser) {
+            return next(new ErrorHandler('Email already in use', 400));
+        }
+        newUserData.email = req.body.email;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+    });
+
     res.status(200).json({
-        success:true,
+        success: true,
+        user: updatedUser
     });
 });
 
@@ -269,6 +287,9 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
     if (!user) {
         return next(new ErrorHandler(`User does not exist with id: ${req.params.id}`));
     }
+
+    const imageId = user.avatar.public_id;
+    await cloudinary.v2.uploader.destroy(imageId);
 
     await User.deleteOne({ _id: req.params.id }); // Corrected to call remove() method
 

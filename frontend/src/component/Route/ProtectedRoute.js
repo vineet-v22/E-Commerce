@@ -6,10 +6,11 @@ const ProtectedRoute = ({ isAdmin }) => {
   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
 
   if (loading) {
-    return null; // or a loading spinner
+    // You should return a loading indicator here
+    return <div>Loading...</div>; // Or any loading component you prefer
   }
 
-  if (isAuthenticated===false) {
+  if (isAuthenticated === false) {
     return <Navigate to="/login" replace />;
   }
 
