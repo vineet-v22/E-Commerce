@@ -1,4 +1,4 @@
-# MERN E-COMMERCE TUTORIAL
+# E-COMMERCE WEBSITE USING MERN STACK
 
 Hi! My name is **Vineet**, I have made this website of e-commerce using MERN Stack.
 
